@@ -9,7 +9,7 @@ const keywords = 'DASH Faucet'
 
 export default function Document() {
     return (
-        <Html lang="en" style={{ background: '#000' }}>
+        <Html lang="en" >
             <Head>
                 {/* Recommended Meta Tags */}
                 <meta charSet='utf-8' />

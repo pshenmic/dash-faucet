@@ -1,4 +1,4 @@
-export const fontOnest = (weight = '300', style = 'normal') => `
+export const fontMontserrat = (weight = '400', style = 'normal') => `
     \nfont-family: var(--font-montserrat);
     font-optical-sizing: auto;
     font-weight: ${weight};
