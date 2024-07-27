@@ -18,7 +18,7 @@ function Claim () {
     const handlePasteClick = async () => {
         try {
             const text = await navigator.clipboard.readText()
-            setWalletInput(walletInput + text)
+            setWalletInput(text)
         } catch (error) {
             console.error('Failed to read clipboard contents: ', error)
         }

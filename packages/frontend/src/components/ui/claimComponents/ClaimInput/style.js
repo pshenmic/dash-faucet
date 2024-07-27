@@ -19,6 +19,7 @@ export const ClaimInputStyle = styled(animated.div)`
         margin-top: ${rm(16)};
         padding: ${rm(16)};
         gap: ${rm(10)};
+        max-height: ${rm(70)};
     `}
 
     .WrapperInput {
