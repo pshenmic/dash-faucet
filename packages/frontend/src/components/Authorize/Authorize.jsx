@@ -2,8 +2,8 @@ import useGlobalStore from "@/store/store"
 import { AuthorizeStyle } from "./style"
 import { easings, useSpring, animated } from "@react-spring/web"
 import Image from "next/image"
-import BlueButton from "../ui/button/BlueButton/BlueButton"
-import AnimationYState from "../Animated/Bock/AnimationYState/AnimationYState"
+import BlueButton from "../UI/button/BlueButton/BlueButton"
+import AnimationYState from "../Animated/Block/AnimationYState/AnimationYState"
 import { useEffect, useState } from "react"
 
 const buttonList = [

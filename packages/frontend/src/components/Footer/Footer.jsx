@@ -1,13 +1,16 @@
 import { FooterStyle } from "./style"
-import AnimationY from "../Animated/Bock/AnimationY/AnimationY"
+import AnimationY from "../Animated/Block/AnimationY/AnimationY"
+import { useMemo } from "react"
 
 const listLink = [
     { name: 'Dash Mainnet', href: '', ariaLabel: 'Go to Dash Mainnet' },
-    { name: 'Privacy Poslicy', href: '', ariaLabel: 'Go to Privacy Poslicy' },
-    { name: 'Terms of use', href: '', ariaLabel: 'Go to Terms of use' }
+    { name: 'Privacy Policy', href: '', ariaLabel: 'Go to Privacy Policy' },
+    { name: 'Tearm of Use', href: '', ariaLabel: 'Go to Terms of Use' }
 ]
 
 function Footer() {
+    const data = useMemo(() => new Date().getFullYear(),[])
+
     return (
         <FooterStyle>
             <div className={'WrapperLinkList'}>
@@ -27,7 +30,7 @@ function Footer() {
                     ))
                     : null}
             </div>
-            <AnimationY delay={(listLink.length + 1) * 100 + 200}>©2024 · Dash Testnet Faucet</AnimationY>
+            <AnimationY delay={(listLink.length + 1) * 100 + 200}>©{data} · Dash Testnet Faucet</AnimationY>
         </FooterStyle>
     )
 }

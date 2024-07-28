@@ -1,4 +1,4 @@
-import { ClaimInputStyle } from "@/components/ui/claimComponents/ClaimInput/style";
+import { ClaimInputStyle } from "@/components/Claim/Components/ClaimInput/style";
 import { createWithEqualityFn } from "zustand/traditional";
 
 const useGlobalStore = createWithEqualityFn (

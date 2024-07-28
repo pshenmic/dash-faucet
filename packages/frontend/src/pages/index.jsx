@@ -44,7 +44,7 @@ export default function Home() {
                         <Elipse
                             style={animationEllipse}
                             className={'Ellipse'}
-                            src={'/community/ellipse.png'}
+                            src={'/community/ellipse.webp'}
                             alt={'ellipse'}
                             width={1560}
                             height={1560} />

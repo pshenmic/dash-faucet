@@ -1,8 +1,9 @@
-import ClaimInput from "../ui/claimComponents/ClaimInput/ClaimInput.jsx"
+import ClaimInput from "./Components/ClaimInput/ClaimInput.jsx"
 import { ClaimStyle } from "./style.js"
-import ClaimAmount from "../ui/claimComponents/ClaimAmount/ClaimAmount.jsx"
+import ClaimAmount from "./Components/ClaimAmount/ClaimAmount.jsx"
 import useGlobalStore from "@/store/store"
-import ClaimHeader from "../ui/claimComponents/ClaimHeader/ClaimHeader.jsx"
+import ClaimHeader from "./Components/ClaimHeader/ClaimHeader.jsx"
+import { useCallback } from "react"
 
 const dataRadioButtons = [
     { name: '13.37', value: '1' },
@@ -15,15 +16,15 @@ function Claim () {
     const walletInput = useGlobalStore(state => state.walletInput)
     const setWalletInput = useGlobalStore(state => state.setWalletInput)
 
-    const handlePasteClick = async () => {
+    const handlePasteClick = useCallback( async () => {
         try {
             const text = await navigator.clipboard.readText()
             setWalletInput(text)
         } catch (error) {
             console.error('Failed to read clipboard contents: ', error)
         }
-    };
-
+    },[]) 
+    
     return(
         <ClaimStyle>
             <div className={'Container'}>

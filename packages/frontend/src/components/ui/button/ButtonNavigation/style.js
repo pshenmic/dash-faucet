@@ -1,15 +1,18 @@
 import { colors, media, rm } from "@/styles";
 import { fontMontserrat } from "@/styles/fonts";
-import { animated } from "@react-spring/web";
 import styled from "styled-components";
 
-export const ButtonNavigationStyle = styled(animated.button)`
-    position: relative;
-    border-radius: ${rm(10)};
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    height: fit-content;
+export const ButtonNavigationStyle = styled.div`
+        position: relative;
+        overflow: hidden;
+        border-radius: ${rm(10)};
+
+    > :first-child {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        height: fit-content;
+    }
 
     .ButtonNavigationStyleMobileImage {
         ${media.xsm`

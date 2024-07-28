@@ -1,10 +1,10 @@
 import Image from "next/image"
-import ButtonNavigation from "../ui/button/ButtonNavigation/ButtonNavigation"
+import ButtonNavigation from "../UI/button/ButtonNavigation/ButtonNavigation"
 import { HeaderStyle } from "./style"
-import { TLitterAnimation } from "../Animated/Text/Examples/TLitterAnimation"
+import { TLitterAnimation } from "../Animated/Text/Examples/TLetterAnimation"
 import { useCallback } from "react"
-import AnimationY from "../Animated/Bock/AnimationY/AnimationY"
-import AnimationX from "../Animated/Bock/AnimationX/AnimationX"
+import AnimationY from "../Animated/Block/AnimationY/AnimationY"
+import AnimationX from "../Animated/Block/AnimationX/AnimationX"
 
 const socialNetworks = [
     { name: 'Telegram', href: '', src: '/networks/telegram.svg', alt: 'telegram', ariaLabel: 'Go to Telegram' },
@@ -14,11 +14,6 @@ const socialNetworks = [
 ]
 
 function Header() {
-    const clickNetworks = useCallback((href) => {
-        if (!href) { return }
-        window.open(href)
-    }, [socialNetworks])
-
     return (
         <HeaderStyle>
             <AnimationX className={'LogoContainer'}>
@@ -30,10 +25,13 @@ function Header() {
                     ? socialNetworks.map((_, i) => (
                         <AnimationY key={i} delay={i * 1000 / 3}>
                             <ButtonNavigation
+                                tag={'a'}
+                                target={'_blank'}
+                                rel={'noopener noreferrer'}
+                                href={_.href || '#'}
                                 text={_.name}
                                 src={_.src}
                                 alt={_.alt}
-                                handleClick={() => clickNetworks(_.href)}
                                 ariaLabel={_.ariaLabel}
                             />
                         </AnimationY>

@@ -27,25 +27,8 @@ export const CustomStyles = createGlobalStyle`
         pointer-events: none;
     }
 
-    .wave {
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 100%;
-        transform: scale(0);
-        animation: wave 0.4s linear;
-        pointer-events: none;
-        position: absolute;
-        z-index: 1;
-    }
-
     .Drop {
         animation: drop 4s infinite linear;
-    }
-
-    @keyframes wave {
-        to {
-            transform: scale(2);
-            opacity: 0;
-        }
     }
 
     @keyframes drop {
