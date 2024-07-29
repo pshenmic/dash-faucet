@@ -2,9 +2,9 @@ import useGlobalStore from "@/store/store"
 import { AuthorizeStyle } from "./style"
 import { easings, useSpring, animated } from "@react-spring/web"
 import Image from "next/image"
-import BlueButton from "../UI/button/BlueButton/BlueButton"
 import AnimationYState from "../Animated/Block/AnimationYState/AnimationYState"
 import { useEffect, useState } from "react"
+import BlueButton from "../UI/Button/BlueButton/BlueButton"
 
 const buttonList = [
     { name: 'Github', icon: '/networks/github.svg', alt: 'Github', ariaLabel: 'Sign in via Github' },
