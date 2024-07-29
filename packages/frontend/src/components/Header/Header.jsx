@@ -1,10 +1,9 @@
 import Image from "next/image"
-import ButtonNavigation from "../UI/button/ButtonNavigation/ButtonNavigation"
 import { HeaderStyle } from "./style"
 import { TLitterAnimation } from "../Animated/Text/Examples/TLetterAnimation"
-import { useCallback } from "react"
 import AnimationY from "../Animated/Block/AnimationY/AnimationY"
 import AnimationX from "../Animated/Block/AnimationX/AnimationX"
+import ButtonNavigation from "../UI/Button/ButtonNavigation/ButtonNavigation"
 
 const socialNetworks = [
     { name: 'Telegram', href: '', src: '/networks/telegram.svg', alt: 'telegram', ariaLabel: 'Go to Telegram' },
