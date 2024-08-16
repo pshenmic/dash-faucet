@@ -1,4 +1,3 @@
-import { ClaimInputStyle } from "@/components/Claim/Components/ClaimInput/style";
 import { createWithEqualityFn } from "zustand/traditional";
 
 const useGlobalStore = createWithEqualityFn (
@@ -8,7 +7,19 @@ const useGlobalStore = createWithEqualityFn (
 
         walletInput: '',
         setWalletInput: (walletInput) => set({ walletInput }),
-    })
+
+        selectedRadioValue: '1',
+        setSelectedRadioValue: (selectedRadioValue) => set({ selectedRadioValue }),
+
+        numberOfTasks: 0,
+        setNumberOfTasks: (numberOfTasks) => set({ numberOfTasks }),
+
+        quantity: 0,
+        setQuantity: (quantity) => set({ quantity }),
+
+        loader: false,
+        setLoader: (loader) => set({ loader }),
+    }) 
 )
 
 export default useGlobalStore
