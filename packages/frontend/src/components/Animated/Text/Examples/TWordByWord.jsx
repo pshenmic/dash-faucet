@@ -7,16 +7,17 @@ export const TWordByWord = ({
     ...props
 }) => {
     const [rerendered, rerender] = useState(false)
-    useEffect(() => void setTimeout(() => rerender(true), 10), [])
+    useEffect(() => void setTimeout(() => rerender(true), 100), [])
 
     return (
         <TextEngine
             enabled={rerendered}
-            wordIn={{opacity: 1}} 
-            wordOut={{opacity: 0}} 
-            wordCoeff={0.5}
-            wordConfig={{ duration: 700, easing: easings.easeInOutQuad }}
+            wordIn={{opacity: 1}}
+            wordOut={{opacity: 0}}
+            wordConfig={{ duration: 1000, easing: easings.easeInOutQuad }}
             mode={'once'}
+            wordDelayIn={250}
+            wordCoeff={0.3}
             {...props}
         >
             { children }
