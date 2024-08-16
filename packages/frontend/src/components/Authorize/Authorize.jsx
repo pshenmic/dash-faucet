@@ -1,75 +1,78 @@
-import useGlobalStore from "@/store/store"
 import { AuthorizeStyle } from "./style"
-import { easings, useSpring, animated } from "@react-spring/web"
-import Image from "next/image"
+import { useCallback } from "react"
+import { useRouter } from "next/router"
+import { authorisation } from "../../tests/authorisation"
+import { showToast } from "../../lib/showToast"
+import { dataAuthorize } from "../../lib/data"
+import { animationPopUp } from "../Animated/Block/CommonAnimations/CommonAnimations"
 import AnimationYState from "../Animated/Block/AnimationYState/AnimationYState"
-import { useEffect, useState } from "react"
+import DarkWrapper from "../UI/DarkWrapper/DarkWrapper"
+import useGlobalStore from "@/store/store"
 import BlueButton from "../UI/Button/BlueButton/BlueButton"
-
-const buttonList = [
-    { name: 'Github', icon: '/networks/github.svg', alt: 'Github', ariaLabel: 'Sign in via Github' },
-    { name: 'X.com', icon: '/networks/twitter.svg', alt: 'twitter', ariaLabel: 'Sign in via Twitter' }
-]
+import Image from "next/image"
 
 function Authorize() {
+    const data = dataAuthorize
     const openAuthorizePopUp = useGlobalStore(state => state.openAuthorizePopUp)
     const setOpenAuthorizePopUp = useGlobalStore(state => state.setOpenAuthorizePopUp)
-    const [transformValue, setTransformValue] = useState('translate(-50%, -30%)');
-    const [pointerEvents, setPointerEvents] = useState('none');
-
-    useEffect(() => {
-        if (openAuthorizePopUp) {
-            setTransformValue('translate(-50%, -50%)');
-            setPointerEvents('all')
-        } else {
-            setTransformValue('translate(-50%, -70%)');
-        }
-    }, [openAuthorizePopUp]);
-
-    const animationPopUpWrapper = useSpring({
-        to: {
-            opacity: openAuthorizePopUp ? '1' : '0',
-            pointerEvents: pointerEvents
-        },
-        config: {
-            duration: 400,
-            easing: easings.easeOutQuad
-        },
-        onRest: () => {
-            if (!openAuthorizePopUp) {
-                setTimeout(() => { setPointerEvents('none') }, 100)
-            }
-        },
-    })
-  
-    const animationPopUp = useSpring({
-        transform: transformValue,
-        config: {
-            duration: 400,
-            easing: easings.easeOutQuad
-        },
-        onRest: () => {
-            if (!openAuthorizePopUp) {
-                setTransformValue('translate(-50%, -30%)');
-            }
-        },
-    });
+    const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue)
+    const setLoader = useGlobalStore(state => state.setLoader)
+    const router = useRouter()
+   
+    const transitions = animationPopUp(openAuthorizePopUp)
+   
+    const auth = useCallback( async (method) => {
+        setLoader(true)
+        setOpenAuthorizePopUp(false)
+        const dashMissioAccomplished = localStorage.getItem('dashMissioAccomplished');
+        await authorisation(method)
+            .then((_) => {
+                setLoader(false)
+                if (_) {
+                    if (!dashMissioAccomplished && selectedRadioValue !== '1') {
+                        router.push('/follow')
+                    } else {
+                        router.push('/faucet')
+                    }
+                    showToast('success', 'Github authorised')
+                }
+            })
+            .catch((error) => {
+                //TODO error handling
+                console.error(error)
+                setLoader(false)
+            })
+    }, [selectedRadioValue])
 
     return (
-        <AuthorizeStyle style={animationPopUpWrapper}>
-                <div className={'Groundwork'} onClick={() => setOpenAuthorizePopUp(false)}></div>
-                <animated.div className={'AuthorizePopUp'} style={ animationPopUp }>
+        <DarkWrapper open={openAuthorizePopUp} click={() => setOpenAuthorizePopUp(false)}>
+            { transitions((style, item) =>
+                item 
+                ? <AuthorizeStyle key={openAuthorizePopUp ? 'open' : 'closed'} className={'AuthorizePopUp'} style={style}>
                     <button onClick={() => setOpenAuthorizePopUp(false)} className={'Cross'}>
-                        <Image src={'community/cross.svg'} width={59.5} height={59.5} alt={'cross'}/>
+                        <Image loading={'eager'} src={'community/cross.svg'} width={59.5} height={59.5} alt={'cross'} />
                     </button>
-                    <AnimationYState tag={'div'} delay={50} state={openAuthorizePopUp} className={'TitleContainer'}>
-                        <span>Authorize to claim 1,000 DASH <Image src={'/community/dashLogo.svg'} width={32} height={32} alt={'dash'} /></span>
-                    </AnimationYState>
-                    <AnimationYState tag={'p'} delay={100} state={openAuthorizePopUp}>Use one of this social network to connect</AnimationYState>
-                    {buttonList?.length
+                    {data?.title
+                        ? <AnimationYState tag={'div'} delay={50} state={openAuthorizePopUp} className={'TitleContainer'}>
+                            <span>
+                                {data.title}
+                                {data?.iconDash?.src
+                                    ? <Image loading={'eager'} src={data.iconDash.src} width={32} height={32} alt={data.iconDash?.alt || ''} />
+                                    : null
+                                }
+                            </span>
+                        </AnimationYState>
+                        : null
+                    }
+                    {data?.subtitle
+                        ? <AnimationYState tag={'p'} delay={100} state={openAuthorizePopUp}>{data.subtitle}</AnimationYState>
+                        : null
+                    }
+                    {data?.buttonList?.length > 0
                         ? <AnimationYState tag={'div'} delay={150} state={openAuthorizePopUp} className={'WrapperButton'}>
-                            {buttonList.map((_, i) => (
+                            {data.buttonList.map((_, i) => (
                                 <BlueButton
+                                    handleClick={() => auth(_.name)}
                                     key={i}
                                     name={_.name}
                                     ariaLabel={_.ariaLabel}
@@ -78,9 +81,12 @@ function Authorize() {
                                 />
                             ))}
                         </AnimationYState>
-                        : null}
-                </animated.div>
-        </AuthorizeStyle>
+                        : null
+                    }
+                </AuthorizeStyle>
+                : null
+            )}
+        </DarkWrapper>
     )
 }
 
