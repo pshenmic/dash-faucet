@@ -1,6 +1,6 @@
 import Image from "next/image"
-import useRipple from "@/hooks/useRipple";
 import { BlueButtonStyle } from "./style";
+import useRipple from "../../../../hooks/useRipple";
 
 function BlueButton({ name, handleClick, ariaLabel, altIconLeft = '', iconLeft, style, ...props }) {
     const rippleRef = useRipple(handleClick);
@@ -11,10 +11,10 @@ function BlueButton({ name, handleClick, ariaLabel, altIconLeft = '', iconLeft, 
                 className={`ContainerButton ${props.disabled ? 'ContainerButtonDisabled' : ''}`}
                 aria-label={ariaLabel}
                 {...props}
-                onClick={handleClick}
             >
                 {iconLeft
                     ? <Image
+                        loading={'eager'}
                         src={iconLeft}
                         alt={altIconLeft}
                         width={18}

@@ -3,7 +3,7 @@ import { easings, useSpring } from "@react-spring/web"
 import { TLitterAnimation } from "@/components/Animated/Text/Examples/TLetterAnimation"
 import AnimationY from "@/components/Animated/Block/AnimationY/AnimationY"
 import { ClaimInputStyle } from "./style"
-import ButtonNavigation from "@/components/UI/Button/ButtonNavigation/ButtonNavigation"
+import ButtonNavigation from "../../../UI/Button/ButtonNavigation/ButtonNavigation"
 
 function ClaimInput({ subtitle, nameButton, handleClick, inputValue, setInputValue, placeholder }) {
     const inputRef = useRef(null)
