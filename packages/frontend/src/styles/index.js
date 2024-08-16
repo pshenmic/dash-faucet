@@ -65,15 +65,15 @@ const GlobalStyles = createGlobalStyle`
         -webkit-overflow-scrolling: touch;
         position: relative;
         overscroll-behavior-y: none;
-        height: calc(var(--vh, 1vh) * 100);
-        @media screen and (max-width: 1080px) {
-            height: calc(var(--svh, 1vh) * 100);
-        }
+        
     }
     body::-webkit-scrollbar { width: 0; }
 
     #__next {
-        height: 100%;
+        height: calc(var(--vh, 1vh) * 100);
+        @media screen and (max-width: 1080px) {
+            height: calc(var(--svh, 1vh) * 100);
+        }
     }
 
     body {
