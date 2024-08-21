@@ -3,7 +3,7 @@ import useGlobalStore from '../store/store';
 
 const setQuantity = useGlobalStore.getState().setQuantity;
 
-export const authorisation = async (method) => {
+export const authorization = async (method) => {
     const jwt = 'jwt-dash-faucet'
     setQuantity(0)
     return new Promise((resolve) => {

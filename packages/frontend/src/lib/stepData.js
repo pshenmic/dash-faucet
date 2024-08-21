@@ -1,9 +1,25 @@
 import { platformExplorerTestFunction, platformTestFunction, testFunctionClaim } from "../tests/followGithub";
 
 export const stepData = (type) => {
-    const platformExplorerDone = localStorage.getItem('platformExplorerDone')
-    const platformDone = localStorage.getItem('platformDone')
-    switch (type) {
+    switch (type) { 
+        case 'Discord':
+            return  [
+                {
+                    title: 'STEP 1:',
+                    subtitle: 'Subscribe to our Discord projects and Star them:',
+                    button: [
+                        { text: '/platform-explorer', leftIcon: { src: '/networks/github.svg', alt: 'Discord' }, ariaLabel: 'Sign in Discord', handleClick: platformExplorerTestFunction },
+                        { text: '/platform', leftIcon: { src: '/networks/github.svg', alt: 'Discord' }, ariaLabel: 'Sign in Discord', handleClick: platformTestFunction },
+                    ]
+                },
+                {
+                    title: 'STEP 2:',
+                    subtitle: 'Claim your free faucet:',
+                    button: [
+                        { text: 'Check and claim 10,000', rightIcon: { src: '/community/dashIcon.svg', alt: 'Dash'}, ariaLabel: 'Claim your free faucet', handleClick: testFunctionClaim, finished: '/faucet' },
+                    ]
+                }
+            ]
         case 'Github':
             return  [
                 {
@@ -45,6 +61,12 @@ export const stepData = (type) => {
 
 export const stepHeader = (type) => {
     switch (type) {
+        case 'Discord':
+            return {
+                text: 'Authorized with Discord',
+                src: '/networks/github.svg',
+                alt: 'Discord'
+            }
         case 'Github':
             return {
                 text: 'Authorized with Github',

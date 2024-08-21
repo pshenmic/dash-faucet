@@ -9,11 +9,11 @@ function CoinsSent () {
     const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue)
     const router = useRouter()
 
-    const data = dataCoinsSent(numberOfTasks)
+    const data = dataCoinsSent(numberOfTasks, selectedRadioValue !== '1')
 
     useEffect(() => {
-        const dashMissioAccomplished = localStorage.getItem('dashMissioAccomplished')
-        if ( !dashMissioAccomplished && selectedRadioValue !== '1' ) {
+        const dashMissionAccomplished = localStorage.getItem('dashMissionAccomplished')
+        if ( !dashMissionAccomplished && selectedRadioValue !== '1' ) {
             router.push('/')
         }
     },[selectedRadioValue])

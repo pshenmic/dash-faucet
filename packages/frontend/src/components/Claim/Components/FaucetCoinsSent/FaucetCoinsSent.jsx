@@ -1,13 +1,13 @@
 import { CoinsSentStyle } from "./style"
 import { TWordByWord } from "../../../Animated/Text/Examples/TWordByWord"
+import { useCallback } from "react"
+import { useRouter } from "next/router"
 import ClaimHeader from "../ClaimHeader/ClaimHeader"
 import BlueButton from "../../../UI/Button/BlueButton/BlueButton"
 import InstantSend from "../../../UI/InstantSend/InstantSend"
 import Confirmations from '../Confirmations/Confirmations'
 import Line from "../../../UI/Line/Line"
 import AnimationY from "../../../Animated/Block/AnimationY/AnimationY"
-import { useCallback } from "react"
-import { useRouter } from "next/router"
 
 function FaucetCoinsSent ({ data }) {
     const router = useRouter()
@@ -37,10 +37,14 @@ function FaucetCoinsSent ({ data }) {
             }
             { data?.conditions?.length > 0
                 ? data.conditions.map((_, i) => (
-                    <div key={i} className={'Conditions'}>
-                        <TWordByWord tag={'p'} letterCoeff={0.3} className={'Conditions__Name'}>{_.name}</TWordByWord>
-                        <TWordByWord tag={'p'} letterCoeff={0.3} className={'Conditions__Value'}>{_.value}</TWordByWord>
-                    </div>
+                    <>
+                        { _?.name || _?.value
+                        ?  <div key={i} className={'Conditions'}>
+                                <TWordByWord tag={'p'} letterCoeff={0.3} className={'Conditions__Name'}>{_?.name || ''}</TWordByWord>
+                                <TWordByWord tag={'p'} letterCoeff={0.3} className={'Conditions__Value'}>{_?.value || ''}</TWordByWord>
+                            </div>
+                        :null }
+                    </>
                 ))
                 : null
             }

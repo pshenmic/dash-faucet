@@ -4,17 +4,21 @@ import { SmartCSSGrid } from "@/styles"
 import { Montserrat } from 'next/font/google'
 import { CustomStyles } from "@/styles/customStyles"
 import { animated } from "@react-spring/web"
-import { ToastContainer } from 'react-toastify';
 import { animationEllipse } from "../components/Animated/Block/CommonAnimations/CommonAnimations"
 import Head from "next/head"
 import GlobalStyles from "@/styles"
-import Authorize from "../components/Authorize/Authorize"
 import Footer from "@/components/Footer/Footer"
 import Image from "next/image"
 import Header from "../components/Header/Header"
 import Download from "../components/Download/Download"
+import dynamic from "next/dynamic"
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from "next/router"
+
+const ToastContainer = dynamic(() =>
+    import('react-toastify').then((mod) => mod.ToastContainer), 
+    { ssr: false }
+)
+const Authorize = dynamic(() => import('../components/Authorize/Authorize'))
 
 export const montserrat = Montserrat({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -26,13 +30,13 @@ export default function App({ Component, pageProps }) {
     const Elipse = animated(Image)
     const [mounted, mount] = useState(false)
     const getLayout = Component.getLayout ?? ((page) => page)
-    const router = useRouter()
 
     useEffect(() => { void document.body.style.removeProperty('opacity'); mount(true) }, [])
 
     useEffect(() => {
         const dataClear = localStorage.getItem('dataClear')
         const now = new Date()
+        localStorage.clear()
         if ( dataClear && now.getTime() >= dataClear) {
             localStorage.clear()
         }

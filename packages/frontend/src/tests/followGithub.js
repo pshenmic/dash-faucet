@@ -24,7 +24,7 @@ export const testFunctionClaim = async () => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(true)
-                localStorage.setItem('dashMissioAccomplished', 'true')
+                localStorage.setItem('dashMissionAccomplished', 'true')
                 localStorage.setItem('dataClear', `${now.getTime() + 86400000}`)
             }, 2000)
         })

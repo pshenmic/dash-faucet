@@ -24,7 +24,7 @@ function Pagination ({ data }) {
                 setActiveIndex(i - 1)
                 setIndexLine(i)
             }
-            if (router.asPath === '/cheque') {
+            if (router.asPath === '/receipt') {
                 setActiveIndex(data.length + 1)
                 setIndexLine(data.length - 1)
             }

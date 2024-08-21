@@ -1,7 +1,7 @@
 import { AuthorizeStyle } from "./style"
 import { useCallback } from "react"
 import { useRouter } from "next/router"
-import { authorisation } from "../../tests/authorisation"
+import { authorization } from "../../tests/authorization"
 import { showToast } from "../../lib/showToast"
 import { dataAuthorize } from "../../lib/data"
 import { animationPopUp } from "../Animated/Block/CommonAnimations/CommonAnimations"
@@ -24,12 +24,12 @@ function Authorize() {
     const auth = useCallback( async (method) => {
         setLoader(true)
         setOpenAuthorizePopUp(false)
-        const dashMissioAccomplished = localStorage.getItem('dashMissioAccomplished');
-        await authorisation(method)
+        const dashMissionAccomplished = localStorage.getItem('dashMissionAccomplished');
+        await authorization(method)
             .then((_) => {
                 setLoader(false)
                 if (_) {
-                    if (!dashMissioAccomplished && selectedRadioValue !== '1') {
+                    if (!dashMissionAccomplished && selectedRadioValue !== '1') {
                         router.push('/follow')
                     } else {
                         router.push('/faucet')

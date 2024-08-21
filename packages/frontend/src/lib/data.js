@@ -41,7 +41,7 @@ export const dataAuthorize = {
 }
 
 // used in (/src/components/Claim/CoinsSent/CoinsSent.jsx)
-export const dataCoinsSent = (numberOfTasks) => {
+export const dataCoinsSent = (numberOfTasks, selectedRadioValue) => {
     return {
         claimHeader: {
             firstTitle: 'Claim DASH ',
@@ -51,19 +51,19 @@ export const dataCoinsSent = (numberOfTasks) => {
         title: `Your transaction is being verified,
 please be patient`,
         conditions: [
-            {name: 'Checking the tasks', value: `${numberOfTasks}/${numberOfTasks} tasks done`},
-            {name: 'Sending the transaction', value: 'd8295c5e882cdc1a5950f8f254c20f3f4da57f83d80c573e59a2e37189582d50'}
+            selectedRadioValue ? {name: 'Checking the tasks', value: `${numberOfTasks}/${numberOfTasks} tasks done`} : null,
+            { name: 'Sending the transaction', value: 'd8295c5e882cdc1a5950f8f254c20f3f4da57f83d80c573e59a2e37189582d50' }
         ],
         button: [
-            {name: 'Open explorer', ariaLabel: 'Open explorer', url: '/' }
+            { name: 'Open explorer', ariaLabel: 'Open explorer', url: '/' }
         ],
         confirmationsName: 'Confirmations',
         textInstantSend: 'InstantSend locked'
     }
 }
 
-// used in (/src/components/Claim/Cheque/Cheque.jsx)
-export const dataCheque = (walletInput) => {
+// used in (/src/components/Claim/Receipt/Receipt.jsx)
+export const dataReceipt = (walletInput) => {
     return {
         claimHeader: {
             firstTitle: 'Claim DASH ',

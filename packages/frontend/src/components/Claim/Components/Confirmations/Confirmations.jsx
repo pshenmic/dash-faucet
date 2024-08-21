@@ -11,7 +11,7 @@ function Confirmations () {
 
     useEffect(() => {
         if (quantity === 2) { 
-            router.push('/cheque')
+            router.push('/receipt')
             return
         }
         setTimeout(() => {setQuantity(quantity + 1)}, 5000)
