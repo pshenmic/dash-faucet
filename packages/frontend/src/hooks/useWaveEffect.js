@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-export const useWaveEffect = (active, style) => {
+function useWaveEffect (active, style) {
     const ref = useRef(null)
     const size = useRef(0)
     const rippleRef = useRef(null)
@@ -34,8 +34,9 @@ export const useWaveEffect = (active, style) => {
 
     // Move Wave
     useEffect(() => {
+        if(!ref.current) { return }
         const moveWave = (e) => {
-            if (!rippleRef.current || !ref.current || animatingRef.current) { return }
+            if (!rippleRef.current || animatingRef.current) { return }
             const size =  Math.max(ref.current.offsetWidth, ref.current.offsetHeight);
             e.preventDefault();
             const x = e.offsetX - size / 2;
@@ -45,7 +46,9 @@ export const useWaveEffect = (active, style) => {
         }
         ref.current.addEventListener('mousemove', moveWave);
         return () => {
-            ref.current.removeEventListener('mousemove', moveWave);
+            if(ref.current) {
+                ref.current.removeEventListener('mousemove', moveWave);
+            }
         }
     }, [])
 

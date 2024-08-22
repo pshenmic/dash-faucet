@@ -22,7 +22,7 @@ const nextConfig = {
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   images: {},
   webpack(config, { isServer }) {
-    config.resolve.alias['@'] = path.resolve(__dirname)
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src')
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module
       config.externals.push('sharp')

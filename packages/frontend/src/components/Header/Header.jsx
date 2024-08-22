@@ -1,27 +1,28 @@
-import Image from "next/image"
 import { HeaderStyle } from "./style"
 import { TLitterAnimation } from "../Animated/Text/Examples/TLetterAnimation"
+import { useRouter } from "next/router"
+import { dataHeader } from "../../lib/data"
 import AnimationY from "../Animated/Block/AnimationY/AnimationY"
 import AnimationX from "../Animated/Block/AnimationX/AnimationX"
 import ButtonNavigation from "../UI/Button/ButtonNavigation/ButtonNavigation"
-
-const socialNetworks = [
-    { name: 'Telegram', href: '', src: '/networks/telegram.svg', alt: 'telegram', ariaLabel: 'Go to Telegram' },
-    { name: 'Github', href: 'https://github.com/pshenmic/platform-explorer/', src: '/networks/github.svg', alt: 'github', ariaLabel: 'Go to GitHub' },
-    { name: 'X.com', href: 'https://x.com/Dashpay', src: '/networks/twitter.svg', alt: 'twitter', ariaLabel: 'Go to X(twitter)' },
-    { name: 'Discord', href: 'https://discord.gg/GeH3ug5G', src: '/networks/discord.svg', alt: 'discord', ariaLabel: 'Go to Discord' }
-]
+import Image from "next/image"
 
 function Header() {
+    const router = useRouter()
+    const data = dataHeader
+
     return (
         <HeaderStyle>
-            <AnimationX className={'LogoContainer'}>
-                <Image src={'/community/logoDash.svg'} width={151} height={40} alt={'dash'} />
-                <TLitterAnimation letterCoeff={0.15} className={'LogoSubName'}>Testnet</TLitterAnimation>
-            </AnimationX>
-            <div className={'ContainerNetworks'}>
-                {socialNetworks?.length
-                    ? socialNetworks.map((_, i) => (
+            { data?.logo
+                ? <AnimationX onClick={() => router.push('/')} className={'LogoContainer'}>
+                    {data.logo?.icon ? <Image src={data.logo.icon} width={151} height={40} alt={data.logo?.alt} /> : null}
+                    <TLitterAnimation letterCoeff={0.05} className={'LogoSubName'}>{data.logo?.subname || ''}</TLitterAnimation>
+                </AnimationX>
+                : null
+            }
+            { data?.socialNetworks?.length > 0
+                ? <div className={'ContainerNetworks'}>
+                    {data.socialNetworks.map((_, i) => (
                         <AnimationY key={i} delay={i * 1000 / 3}>
                             <ButtonNavigation
                                 tag={'a'}
@@ -34,10 +35,10 @@ function Header() {
                                 ariaLabel={_.ariaLabel}
                             />
                         </AnimationY>
-                    ))
-                    : null
-                }
-            </div>
+                    ))}
+                </div>
+                : null
+            }
         </HeaderStyle>
     )
 }

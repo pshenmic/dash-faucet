@@ -1,19 +1,29 @@
 import { ClaimHeaderStyle } from "./style"
 import { TLitterAnimation } from "@/components/Animated/Text/Examples/TLetterAnimation"
 import SvgAnimation from "./SvgAnimation"
+import AnimationX from "../../../Animated/Block/AnimationX/AnimationX"
 
 function ClaimHeader ({ firstTitle, secondTitle, description }) {
     return(
         <ClaimHeaderStyle>
-            <div className={'Animation'}>
+            <AnimationX tag={'div'} duration={1000} className={'Animation'}>
                 <SvgAnimation />
-            </div>
+            </AnimationX>
             <div className={'WrapperText'}>
                 <span className={'Title'}>
-                    <TLitterAnimation letterCoeff={0.1}>{firstTitle}</TLitterAnimation>
-                    <TLitterAnimation letterCoeff={0.1} letterDelayIn={800}>{secondTitle}</TLitterAnimation>
+                    { firstTitle
+                        ? <TLitterAnimation letterCoeff={0.05}>{firstTitle}</TLitterAnimation>
+                        : null
+                    }
+                    { secondTitle 
+                        ? <TLitterAnimation letterCoeff={0.05} letterDelayIn={800}>{secondTitle}</TLitterAnimation> 
+                        : null 
+                    }
                 </span>
-                <TLitterAnimation letterCoeff={0.05} tag={'p'}>{description}</TLitterAnimation>
+                { description
+                    ? <TLitterAnimation letterCoeff={0.05} tag={'p'}>{description}</TLitterAnimation>
+                    : null
+                }
             </div>
         </ClaimHeaderStyle>
     )

@@ -2,7 +2,7 @@ import { colors, media, rm } from "@/styles";
 import { fontMontserrat } from "@/styles/fonts";
 import styled from "styled-components";
 
-export const BlueButtonStyle = styled.span`
+export const BlueButtonStyle = styled.div`
     position: relative;
     border-radius: ${rm(65)};
     background: rgba(0, 141, 228, 0.2);
@@ -68,6 +68,8 @@ export const BlueButtonStyle = styled.span`
         
         ${media.xsm`
             min-width: 100%;
+            padding: ${rm(12)} ${rm(27)};
+            font-size: ${rm(16)};
         `}
     }
 `

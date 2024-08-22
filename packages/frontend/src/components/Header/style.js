@@ -19,11 +19,13 @@ export const HeaderStyle = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        cursor: pointer;
 
         > img {
             position: relative;
             width: auto;
             height: ${rm(40)};
+            
             ${media.xsm`
                 height: ${rm(31)};
             `}

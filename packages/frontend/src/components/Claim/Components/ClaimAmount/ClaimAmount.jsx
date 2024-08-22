@@ -1,11 +1,13 @@
 import AnimationY from '@/components/Animated/Block/AnimationY/AnimationY'
-import { useCallback, useState } from 'react';
-import useWaveEffect from '@/hooks/useWaveEffect';
+import { useCallback, } from 'react';
+import useWaveEffect from '../../../../hooks/useWaveEffect';
 import { ClaimAmountStyle } from './style';
 import BlueButton from '@/components/UI/Button/BlueButton/BlueButton';
+import useGlobalStore from "@/store/store"
 
 function ClaimAmount({ text, dataRadioButtons, buttonName, handleClick, wallet }) {
-    const [selectedRadioValue, setSelectedRadioValue] = useState(dataRadioButtons[0].value);
+    const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue)
+    const setSelectedRadioValue = useGlobalStore(state => state.setSelectedRadioValue)
 
     const handleRadioChange = useCallback((event) => {
         setSelectedRadioValue(event.target.value);
@@ -23,9 +25,9 @@ function ClaimAmount({ text, dataRadioButtons, buttonName, handleClick, wallet }
             </span>
             <AnimationY delay={(dataRadioButtons.length + 1) * 100 + 100}>
                 <BlueButton
-                name={buttonName} 
-                handleClick={handleClick} 
-                disabled={wallet && wallet.length === 34 && selectedRadioValue ? false : true}
+                    name={buttonName} 
+                    handleClick={handleClick} 
+                    disabled={wallet && wallet.length === 34 && selectedRadioValue ? false : true}
                 />
             </AnimationY>
         </ClaimAmountStyle>
