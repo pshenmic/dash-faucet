@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 import { parseCookies } from 'nookies'
 import { useTransition, animated, easings } from "@react-spring/web"
 import { dataPagination } from "../../lib/dataPagination"
-import { stepData } from "../../lib/stepData"
 import useGlobalStore from "../../store/store"
 import CoinsSent from "../../components/Claim/CoinsSent/CoinsSent"
 import FllowClaim from "../../components/Claim/FllowClaim/FllowClaim"
@@ -13,30 +12,14 @@ import Receipt from "../../components/Claim/Receipt/Receipt"
 
 export default function Page() {
   const router = useRouter()
-  const [verification, setVerification] = useState(false)
   const cookies = parseCookies()
   const ref = useRef(null)
   const [heightWrapper, setHeightWrapper] = useState(0)
+  const [verification, setVerification] = useState(false)
   const walletInput = useGlobalStore(state => state.walletInput)
   const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue)
-  const setNumberOfTasks = useGlobalStore(state => state.setNumberOfTasks)
-  const [numbeOfUncompletedTasks, setNumbeOfUncompletedTasks] = useState(null)
 
   const windowWidth = useInnerWidth()
-
-  const stepsData = stepData(cookies.authMethodDashFaucet)
-  console.log(cookies.authMethodDashFaucet)
-  useEffect(() => {
-    if (!stepsData?.length) { return }
-    const countButtonsWithoutFaucet = stepsData.reduce((count, step) => {
-      const buttonsWithoutFaucet = step.button.filter(btn => !btn.finished)
-      return count + buttonsWithoutFaucet.length
-    }, 0);
-    if (countButtonsWithoutFaucet) {
-      setNumbeOfUncompletedTasks(+countButtonsWithoutFaucet || 0)
-      setNumberOfTasks(+countButtonsWithoutFaucet || 0)
-    }
-  },[])
 
   useEffect(() => {
     if(!cookies.jwtDashFaucet && !cookies.authMethodDashFaucet || !walletInput || !selectedRadioValue){
@@ -51,8 +34,7 @@ export default function Page() {
     if (!verification) { return }
     switch(router.asPath) {
       case '/follow':
-        return <FllowClaim setNumbeOfUncompletedTasks={setNumbeOfUncompletedTasks}
-        numbeOfUncompletedTasks={numbeOfUncompletedTasks} stepsData={stepsData}/>
+        return <FllowClaim />
       case '/faucet': 
         return <CoinsSent />
       case '/receipt':
@@ -92,8 +74,16 @@ export default function Page() {
 }
 
 const MyComponent = ({ page }) => {
-  const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue);
-  const data = dataPagination(selectedRadioValue);
+  const selectedRadioValue = useGlobalStore(state => state.selectedRadioValue)
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    const dashMissionAccomplished = localStorage.getItem('dashMissionAccomplished')
+    const getData = dataPagination( dashMissionAccomplished || selectedRadioValue === '1' ? '1' : selectedRadioValue )
+    if (getData) {
+      setData(getData)
+    }
+  },[])
 
   return (
     <main className={'WrapperFollow'}>

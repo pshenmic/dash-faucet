@@ -24,7 +24,7 @@ function Authorize() {
     const auth = useCallback( async (method) => {
         setLoader(true)
         setOpenAuthorizePopUp(false)
-        const dashMissionAccomplished = localStorage.getItem('dashMissionAccomplished');
+        const dashMissionAccomplished = localStorage.getItem('dashMissionAccomplished')
         await authorization(method)
             .then((_) => {
                 setLoader(false)

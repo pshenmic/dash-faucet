@@ -51,7 +51,7 @@ function FaucetCoinsSent ({ data }) {
             { data?.button?.length > 0
                 ? <div className={'WrapperBlueButton'}>
                         { data.button.map((_, i) => (
-                            <AnimationY key={i} delay={(i + 1) * 300} duration={1000}>
+                            <AnimationY key={i + 99} delay={(i + 1) * 300} duration={1000}>
                                 <BlueButton handleClick={() => handleLink(_.url)} name={_.name} ariaLabel={_.ariaLabel}/>
                             </AnimationY>
                         ))}

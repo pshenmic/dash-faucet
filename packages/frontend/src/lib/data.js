@@ -51,7 +51,7 @@ export const dataCoinsSent = (numberOfTasks, selectedRadioValue) => {
         title: `Your transaction is being verified,
 please be patient`,
         conditions: [
-            selectedRadioValue ? {name: 'Checking the tasks', value: `${numberOfTasks}/${numberOfTasks} tasks done`} : null,
+            selectedRadioValue && numberOfTasks ? {name: 'Checking the tasks', value: `${numberOfTasks}/${numberOfTasks} tasks done`} : null,
             { name: 'Sending the transaction', value: 'd8295c5e882cdc1a5950f8f254c20f3f4da57f83d80c573e59a2e37189582d50' }
         ],
         button: [

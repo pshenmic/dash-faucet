@@ -36,7 +36,6 @@ export default function App({ Component, pageProps }) {
     useEffect(() => {
         const dataClear = localStorage.getItem('dataClear')
         const now = new Date()
-        localStorage.clear()
         if ( dataClear && now.getTime() >= dataClear) {
             localStorage.clear()
         }
